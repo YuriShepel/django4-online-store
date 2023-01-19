@@ -1,7 +1,8 @@
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
 
 from .models import User
 from .forms import UserLoginForm, UserRegistrationForm, UserProfileForm
@@ -22,6 +23,13 @@ def login(request):
         form = UserLoginForm()
     context = {'form': form}
     return render(request, 'users/login.html', context)
+
+
+class UserRegistrationView(CreateView):
+    model = User
+    form_class = UserRegistrationForm
+    template_name = 'users/register.html'
+    success_url = reverse_lazy('users:login')
 
 
 def registration(request):
