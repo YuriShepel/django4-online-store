@@ -167,3 +167,5 @@ pyvenv.cfg
 
 Scripts/
 
+# linters
+.flake8
